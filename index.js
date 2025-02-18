@@ -53,46 +53,46 @@ const elements = {
   dropdownBtn: document.getElementById("dropdownBtn"),
   dropDownIcon: document.getElementById("dropDownIcon"),
 };
-console.log(elements);
-let activeBoard = "";
 
-/*// Extracts unique board names from tasks
+let StyleActiveBoard = "";
+
+// Extracts unique board names from tasks
 // TASK: FIX BUGS
 function fetchAndDisplayBoardsAndTasks() {
   const tasks = getTasks();
-  const boards = [...new Set(tasks.map(task => task.board).filter(Boolean))];
+  const boards = [...new Set(tasks.map((task) => task.board).filter(Boolean))];
   displayBoards(boards);
+  populateBoardDropdown(boards);
   if (boards.length > 0) {
-    const localStorageBoard = JSON.parse(localStorage.getItem("activeBoard"))
-    activeBoard = localStorageBoard ? localStorageBoard ;  boards[0]; 
-    elements.headerBoardName.textContent = activeBoard
-    styleActiveBoard(activeBoard)
+    const localStorageBoard = JSON.parse(localStorage.getItem("activeBoard"));
+    activeBoard = localStorageBoard ? localStorageBoard : boards[0];
+    elements.headerBoardName.textContent = activeBoard;
+    StyleActiveBoard(activeBoard);
     refreshTasksUI();
   }
 }
-
+console.log(fetchAndDisplayBoardsAndTasks);
 // Creates different boards in the DOM
 // TASK: Fix Bugs
 function displayBoards(boards) {
   const boardsContainer = document.getElementById("boards-nav-links-div");
-  boardsContainer.innerHTML = ''; // Clears the container
-  boards.forEach(board => {
+  boardsContainer.innerHTML = ""; // Clears the container
+  boards.forEach((board) => {
     const boardElement = document.createElement("button");
     boardElement.textContent = board;
     boardElement.classList.add("board-btn");
-    boardElement.click()  { 
+    boardElement.addEventListener("click", () => {
       elements.headerBoardName.textContent = board;
       filterAndDisplayTasksByBoard(board);
-      activeBoard = board //assigns active board
-      localStorage.setItem("activeBoard", JSON.stringify(activeBoard))
-      styleActiveBoard(activeBoard)
-    };
-    boardsContainer.appendChild(boardElement);
+      activeBoard = board; //assigns active board
+      localStorage.setItem("activeBoard", JSON.stringify(activeBoard));
+      styleActiveBoard(activeBoard);
+    });
+    elements.boardsContainer.appendChild(boardElement);
   });
-
 }
 
-// Filters tasks corresponding to the board name and displays them on the DOM.
+/*/ Filters tasks corresponding to the board name and displays them on the DOM.
 // TASK: Fix Bugs
 function filterAndDisplayTasksByBoard(boardName) {
   const tasks = getTasks(); // Fetch tasks from a simulated local storage function
