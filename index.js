@@ -223,8 +223,19 @@ function toggleModal(show, modal = elements.modalWindow) {
 function addTask(event) {
   event.preventDefault();
 
+  const title = document.getElementById("task-title").value;
+  const description = document.getElementById("task-description").value;
+  const board = document.getElementById("task-board").value;
+  const status = document.getElementById("task-status").value;
+
   //Assign user input to the task object
-  const task = {};
+  const task = {
+    title,
+    description,
+    status,
+    board,
+    id: Date.now(),
+  };
   const newTask = createNewTask(task);
   if (newTask) {
     addTaskToUI(newTask);
