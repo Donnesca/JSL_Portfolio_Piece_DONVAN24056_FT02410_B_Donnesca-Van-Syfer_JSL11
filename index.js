@@ -36,6 +36,8 @@ const elements = {
   modalWindow: document.getElementById("new-task-modal-window"),
   filterDiv: document.getElementById("filterDiv"),
   editTaskModal: document.querySelector(".edit-task-modal-window"),
+  sideBar: document.querySelector(".side-bar"),
+  editBtn: document.querySelector(".edit-btn"),
 };
 
 let activeBoard = "";
@@ -173,6 +175,14 @@ function setupEventListener() {
       elements.filterDiv.style.display = "none"; // Also hide the filter overlay
     });
   }
+
+  // Add this line to display side bar as a menu on smaller screens
+  elements.editBtn.addEventListener("click", () => {
+    if (window.innerWidth <= 800) {
+      //console.log("Edit button clicked on mobile!");
+      elements.sideBar.classList.toggle("sidebar-visible");
+    }
+  });
 
   // Clicking outside the modal to close it
   if (elements.filterDiv) {
